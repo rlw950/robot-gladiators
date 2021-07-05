@@ -1,26 +1,37 @@
+// Game Starts
+// "WIN" - Player robot has defeated all enemy-robots
+//    * Fight all enemy-robots
+//    * Defeat each enemy-robot
+// "LOSE" - Player robot's health is zero or less
+
 var playerName = window.prompt("What is your robot's name?");
 var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
-// You can also log multiple values at once like this
-console.log(playerName, playerAttack, playerHealth);
-
-var enemyName = "Roberto";
+var enemyNames = ["Roberto", "Amy Android", "Robo Trumble"];
 var enemyHealth = 50;
 var enemyAttack = 12;
+var fight() = function(enemyName) {
+    ... // fight function statement
+}
 
-var fight = function() {
-    //Alert players that they are starting the round
+
+for (var i = 0;  i < enemyNames.length; i++) {
+    fight(enemyNames[i])
+}
+
     window.alert("Welcome to Robot Gladiators!");
     
+    // ask player if they'd like to fight or run
     var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
+    // if player choses to fight, fight
     if (promptFight === "fight" || promptFight === "FIGHT") {
         // remove enemy's health by subtracting the amount set in the playerAttack variable
         enemyHealth = enemyHealth - playerAttack
         console.log(
-            playerName + " attacked " + enemyName + ". " +enemyName + "now has " + enemyHealth + " health remaining"
+            playerName + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining"
             );
         
         // check enemy's health
@@ -33,7 +44,7 @@ var fight = function() {
     // remove player's health by subtracting the amount set in the playerAttack variable
     playerHealth = playerHealth - enemyAttack
     console.log(
-        enemyName + " attacked " + playerName + ". " + playerName + "now has " + playerHealth + " health remaining"
+        enemyName + " attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining"
         );
 
     // check player's health
@@ -57,14 +68,9 @@ var fight = function() {
         else {
             fight();
         }
-        
-        
+        // if player did not choose 1 or 2 in prompt        
         window.alert(playerName + " has chosen to skip the fight!");
-    }else {
+    } else {
         window.alert("You need to choose a valid option.  Try again!");
     }
-    
 
-}
-
-fight();
