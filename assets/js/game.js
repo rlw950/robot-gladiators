@@ -125,7 +125,10 @@ var endGame = function() {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 // ask player if they'd like to play again
 var playAgainConfirm = window.confirm("Would you like to play again?");
 
