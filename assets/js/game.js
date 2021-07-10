@@ -20,10 +20,20 @@ var playerInfo = {
         window.alert("Refilling player's health by 20 for 7 dollars.");
         this.health += 20;
         this.money -= 7;
-      } else {
+      }
+      else {
         window.alert("You don't have enough money!");
       }
-      
+    }, // comma!
+    upgradAttack: function() {
+      if (this.money >= 7) {
+      window.alert("Upgrading player's attack by 6 for 7 dollars.");
+      this.attack += 6;
+      this.money -= 7;
+      }
+       else {
+        window.alert("You don't have enough money!");
+      }
     }, // comma!
     upgradAttack: function() {
       if (this.money >= 7) {
@@ -60,6 +70,7 @@ var enemyInfo = [
 
 // fight function (now with parameter for enemy's name)
 var fight = function(enemy) {
+  console.log(enemy);
   while (playerInfo.health > 0 && enemy.health > 0) {
     // ask player if they'd like to fight or run
     var promptFight = window.prompt('Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.');
@@ -137,7 +148,7 @@ var startGame = function() {
       var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
       pickedEnemyObj.health = randomNumber(40, 60);
 
-      // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemy.name parameter
+      // pass the pickedEnemy.name variable's value into the fight function, where it will assume the value of the enemy.name parameter
       fight(pickedEnemyObj);
 
       // if player is still alive and we're not at the last enemy in the array
