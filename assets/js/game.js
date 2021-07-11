@@ -4,69 +4,12 @@
 //    * Defeat each enemy-robot
 //  "LOSE" - Player robot's health is zero or less
 
-
-var playerInfo = {
-    name: window.prompt("What is your robot's name?"),
-    health: 100,
-    attack: 10,
-    money: 10,
-    reset: function() {
-      this.health = 100;
-      this.money = 10;
-      this.attack = 10;
-    }, // comma!
-    refillHealth: function() {
-      if (this.money >= 7) {
-        window.alert("Refilling player's health by 20 for 7 dollars.");
-        this.health += 20;
-        this.money -= 7;
-      }
-      else {
-        window.alert("You don't have enough money!");
-      }
-    }, // comma!
-    upgradAttack: function() {
-      if (this.money >= 7) {
-      window.alert("Upgrading player's attack by 6 for 7 dollars.");
-      this.attack += 6;
-      this.money -= 7;
-      }
-       else {
-        window.alert("You don't have enough money!");
-      }
-    }, // comma!
-    upgradAttack: function() {
-      if (this.money >= 7) {
-        window.alert("Upgrading player's attack by 6 for 7 dollars.");
-        this.attack += 6;
-        this.money -= 7;
-      } else {
-        window.alert("You don't have enough money!");
-      }
-    }
-};
-
 // function to generate a random numeric value
 var randomNumber = function(min, max) {
   var value = Math.floor(Math.random() *(max - min + 1) + min);
 
   return value;
 };
-
-var enemyInfo = [
-    {
-        name: "Roberto",
-        attack: randomNumber(10, 14),
-    },
-    {
-        name: "Amy Android",
-        attack: randomNumber(10, 14)
-    },
-    {
-        name: "Robo Trumble",
-        attack: randomNumber(10, 14)
-    }
-];
 
 // fight function (now with parameter for enemy's name)
 var fight = function(enemy) {
@@ -90,8 +33,11 @@ var fight = function(enemy) {
       }
     }
 
+    // generate random damage value based on enemy's attack power
+    var damage = randomNumber(enemy.attack - 3, enemy.attack);
+
     // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
-    enemy.health = Math.max(0, enemy.health - playerInfo.attack);
+    enemy.health = Math.max(0, enemy.health - damage);
     console.log(
       playerInfo.name + ' attacked ' + enemy.name + '. ' + enemy.name + ' now has ' + enemy.health + ' health remaining.'
     );
@@ -109,10 +55,11 @@ var fight = function(enemy) {
       window.alert(enemy.name + ' still has ' + enemy.health + ' health left.');
     }
 
-    // generate random damage value based on enemy's attack power
-    var damage = randomNumber(enemy.attack - 3, enemy.attack);
+    // remove player's health by subtracting the amount set in the enemy.attack variable
+    var damage = randomNumber(enemy.attack -3, enemy.attack);
 
     playerInfo.health = Math.max(0, playerInfo.health - damage);
+    
     console.log(
       enemy.name + ' attacked ' + playerInfo.name + '. ' + playerInfo.name + ' now has ' + playerInfo.health + ' health remaining.'
     );
@@ -144,9 +91,8 @@ var startGame = function() {
       // pick new enemy to fight based on the index of the enemy.names array
       var pickedEnemyObj = enemyInfo[i];
 
-      // generate random damage value based on player's attack power
-      var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-      pickedEnemyObj.health = randomNumber(40, 60);
+      // set health for picked enemy
+      pickedEnemyObj.health = randomNumber(40,60);
 
       // pass the pickedEnemy.name variable's value into the fight function, where it will assume the value of the enemy.name parameter
       fight(pickedEnemyObj);
@@ -226,5 +172,74 @@ var shop = function() {
   }
 };
 
-// start first game when page loads
+// function to set name
+var getPlayerName = function(){
+  var name = "";
+
+  while (name === "" || name === null) {
+    name = prompt("What is your robot's name?");
+  }
+
+  console.log("Your robot's name is " + name);
+  return name;
+}
+
+/* GAME INFORMATION / VARIABLES */
+var playerInfo = {
+
+  name: getPlayerName(),
+    name: window.prompt("What is your robot's name?"),
+    health: 100,
+    attack: 10,
+    money: 10,
+    reset: function() {
+      this.health = 100;
+      this.money = 10;
+      this.attack = 10;
+    }, // comma!
+    refillHealth: function() {
+      if (this.money >= 7) {
+        window.alert("Refilling player's health by 20 for 7 dollars.");
+        this.health += 20;
+        this.money -= 7;
+      }
+      else {
+        window.alert("You don't have enough money!");
+      }
+    }, // comma!
+    upgradAttack: function() {
+      if (this.money >= 7) {
+        window.alert("Upgrading player's attack by 6 for 7 dollars.");
+        this.attack += 6;
+        this.money -= 7;
+      } else {
+        window.alert("You don't have enough money!");
+      }
+    }
+};
+
+// enemy information
+var enemyInfo = [
+    {
+        name: "Roberto",
+        attack: randomNumber(10, 14),
+    },
+    {
+        name: "Amy Android",
+        attack: randomNumber(10, 14)
+    },
+    {
+        name: "Robo Trumble",
+        attack: randomNumber(10, 14)
+    }
+];
+
+console.log(enemyInfo);
+console.log(enemyInfo[0]);
+console.log(enemyInfo[0].name);
+console.log(enemyInfo[0]['attack']);
+
+/* END GAME INFORMATION / VARIABLES */
+
+/* RUN GAME */
 startGame();
